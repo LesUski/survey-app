@@ -1,0 +1,134 @@
+### TEMPLATE FILE - DO NOT ADD CREDENTIALS HERE
+### Replace the placeholder values
+
+@baseUrl = {{api_base_url}}
+@userPoolId = {{cognito_user_pool_id}}
+@clientId = {{cognito_client_id}}
+@region = {{aws_region}}
+@username = {{test_username}}
+@password = {{test_password}}
+
+### IMPORTANT: Replace all variables above with your actual values before testing!
+
+################################
+### AUTHENTICATION WITH COGNITO
+################################
+
+### 1. Initialize Authentication
+# @name initiateAuth
+POST https://cognito-idp.{{region}}.amazonaws.com/
+Content-Type: application/x-amz-json-1.1
+X-Amz-Target: AWSCognitoIdentityProviderService.InitiateAuth
+
+{
+  "AuthFlow": "USER_PASSWORD_AUTH",
+  "ClientId": "{{clientId}}",
+  "AuthParameters": {
+    "USERNAME": "{{username}}",
+    "PASSWORD": "{{password}}"
+  }
+}
+
+### Store the ID token from the response
+@idToken = {{initiateAuth.response.body.AuthenticationResult.IdToken}}
+
+################################
+### SURVEY API TESTS
+################################
+
+### 2. Health Check
+GET {{baseUrl}}/health
+
+### 3. Create a new survey
+# @name createSurvey
+POST {{baseUrl}}/surveys
+Content-Type: application/json
+Authorization: {{idToken}}
+
+{
+  "title": "Test Survey",
+  "description": "Survey for testing API",
+  "questions": [
+    {
+      "id": "q1",
+      "text": "How would you rate this test?",
+      "type": "rating",
+      "required": true
+    },
+    {
+      "id": "q2",
+      "text": "Any feedback?",
+      "type": "text",
+      "required": false
+    }
+  ],
+  "isActive": true,
+  "isPublic": true
+}
+
+### Store the surveyId from the response
+@surveyId = {{createSurvey.response.body.surveyId}}
+
+### 4. Get all surveys
+GET {{baseUrl}}/surveys
+Authorization: {{idToken}}
+
+### 5. Get a specific survey
+GET {{baseUrl}}/surveys/{{surveyId}}
+Authorization: {{idToken}}
+
+### 6. Submit a response to the survey
+POST {{baseUrl}}/surveys/{{surveyId}}/responses
+Content-Type: application/json
+
+{
+  "answers": [
+    {
+      "questionId": "q1",
+      "value": "5"
+    },
+    {
+      "questionId": "q2",
+      "value": "Test response"
+    }
+  ],
+  "metadata": {
+    "source": "api-test"
+  }
+}
+
+### 7. Get survey results
+GET {{baseUrl}}/surveys/{{surveyId}}/results
+Authorization: {{idToken}}
+
+################################
+### LOCALSTACK TESTING
+################################
+
+### For LocalStack testing (replace with your actual values)
+@localApiEndpoint = http://localhost:4566/restapis/{{api_id}}/{{stage}}/_user_request_
+@stage = dev
+@apiId = {{api_id}}  # Replace with your actual API ID from LocalStack
+@apiKey = test-api-key-local-xyz-753
+@userId = test-user-123456789
+
+### 8. Create Survey in LocalStack
+POST {{localApiEndpoint}}/surveys
+Content-Type: application/json
+x-api-key: {{apiKey}}
+x-user-id: {{userId}}
+
+{
+  "title": "LocalStack Test Survey",
+  "description": "Testing with LocalStack",
+  "questions": [
+    {
+      "id": "q1",
+      "text": "How would you rate this test?",
+      "type": "rating",
+      "required": true
+    }
+  ],
+  "isActive": true,
+  "isPublic": true
+}
