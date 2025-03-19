@@ -1,0 +1,129 @@
+Project Tree for: survey-app
+Depth level: 5
+Excluded directories: node_modules|.vscode|cdk.out|.git
+--------------------------------------
+
+.
+├── bin
+│   └── survey-app.ts
+├── build
+│   ├── bin
+│   │   ├── survey-app.d.ts
+│   │   └── survey-app.js
+│   ├── lambda
+│   │   ├── handlers
+│   │   │   ├── __tests__
+│   │   │   │   ├── createsurvey.test.d.ts
+│   │   │   │   ├── createsurvey.test.js
+│   │   │   │   ├── getsurveyresults.test.d.ts
+│   │   │   │   ├── getsurveyresults.test.js
+│   │   │   │   ├── getsurveys.test.d.ts
+│   │   │   │   ├── getsurveys.test.js
+│   │   │   │   ├── submitresponse.test.d.ts
+│   │   │   │   └── submitresponse.test.js
+│   │   │   ├── createsurvey.d.ts
+│   │   │   ├── createsurvey.js
+│   │   │   ├── getsurveyresults.d.ts
+│   │   │   ├── getsurveyresults.js
+│   │   │   ├── getsurveys.d.ts
+│   │   │   ├── getsurveys.js
+│   │   │   ├── index.d.ts
+│   │   │   ├── index.js
+│   │   │   ├── submitresponse.d.ts
+│   │   │   └── submitresponse.js
+│   │   ├── layers
+│   │   │   └── common
+│   │   │       └── nodejs
+│   │   └── models
+│   │       ├── index.d.ts
+│   │       ├── index.js
+│   │       ├── response.d.ts
+│   │       ├── response.js
+│   │       ├── survey.d.ts
+│   │       └── survey.js
+│   ├── lib
+│   │   ├── constructs
+│   │   │   ├── api-constructs.d.ts
+│   │   │   ├── api-constructs.js
+│   │   │   ├── auth-constructs.d.ts
+│   │   │   ├── auth-constructs.js
+│   │   │   ├── storage-constructs.d.ts
+│   │   │   └── storage-constructs.js
+│   │   ├── survey-app-stack.d.ts
+│   │   └── survey-app-stack.js
+│   └── test
+│       └── integration
+│           ├── api-client.d.ts
+│           ├── api-client.js
+│           ├── surveys-api.test.d.ts
+│           ├── surveys-api.test.js
+│           ├── types.d.ts
+│           ├── types.js
+│           ├── utils.d.ts
+│           └── utils.js
+├── lambda
+│   ├── commons
+│   │   ├── helpers
+│   │   │   ├── logging.ts
+│   │   │   └── utils.ts
+│   │   └── powertools
+│   │       ├── constants.ts
+│   │       └── logger.ts
+│   ├── handlers
+│   │   ├── __mocks__
+│   │   │   └── utils.js
+│   │   ├── __tests__
+│   │   │   ├── createsurvey.test.ts
+│   │   │   ├── getsurveyresults.test.ts
+│   │   │   ├── getsurveys.test.ts
+│   │   │   └── submitresponse.test.ts
+│   │   ├── createsurvey.ts
+│   │   ├── getsurveyresults.ts
+│   │   ├── getsurveys.ts
+│   │   └── submitresponse.ts
+│   ├── models
+│   │   ├── index.ts
+│   │   ├── response.ts
+│   │   └── survey.ts
+│   └── jest.config.js
+├── lib
+│   ├── constructs
+│   │   ├── api-constructs.ts
+│   │   ├── auth-constructs.ts
+│   │   ├── storage-constructs.ts
+│   │   └── website-constructs.ts
+│   └── survey-app-stack.ts
+├── scripts
+│   ├── debug-lambda.sh
+│   ├── deploy.sh
+│   ├── fix-lambda-output.js
+│   ├── local-deploy.sh
+│   ├── run-integration-tests.sh
+│   ├── sample-data.sh
+│   ├── test-api.sh
+│   └── test-surveys-endpoint.sh
+├── test
+│   ├── integration
+│   │   ├── api-client.ts
+│   │   ├── surveys-api.test.ts
+│   │   ├── types.ts
+│   │   └── utils.ts
+│   ├── local_survey_test.http
+│   └── survey_api_test.http
+├── tmp
+│   └── localstack
+├── CLAUDE.md
+├── Claude_summary.yml
+├── README.md
+├── cdk.context.json
+├── cdk.json
+├── docker-compose.yml
+├── eslint.config.js
+├── jest.config.js
+├── localstack_logs.txt
+├── package-lock.json
+├── package.json
+├── project_tree.txt
+└── tsconfig.json
+
+29 directories, 92 files

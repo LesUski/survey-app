@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  localstack:
+    container_name: '${LOCALSTACK_DOCKER_NAME:-survey-app-localstack}'
+    image: localstack/localstack
+    ports:
+      - '127.0.0.1:4566:4566' # LocalStack Gateway
+      - '127.0.0.1:4510-4559:4510-4559' # external services port range
+    environment:
+      - DEBUG=${DEBUG-1}
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - LAMBDA_EXECUTOR=${LAMBDA_EXECUTOR-}
+      - LOCALSTACK_API_KEY=${LOCALSTACK_API_KEY-}
+      - AWS_DEFAULT_REGION=us-east-1
+      - EDGE_PORT=4566
+      - SERVICES=dynamodb,lambda,apigateway,cognito,s3,iam,cloudformation,cloudwatch,logs,events,sts,secretsmanager
+      - PERSISTENCE=1
+      - DATA_DIR=/tmp/localstack/data
+    volumes:
+      - '${LOCALSTACK_VOLUME_DIR:-./tmp/localstack}:/var/lib/localstack'
+      - '/var/run/docker.sock:/var/run/docker.sock'
